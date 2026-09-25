@@ -1,1 +1,138 @@
-<h1>what are doing here?<h1>
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta name="description" content="A.R.I.S. is a personal intelligence system for turning questions into clear, useful next steps." />
+	<title>A.R.I.S. | Your thinking, in motion.</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com" />
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+	<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+	<style>
+		:root {
+			--ink: #f1f0ea;
+			--muted: #989993;
+			--dim: #676963;
+			--line: rgba(241, 240, 234, .14);
+			--night: #101211;
+			--panel: #171a18;
+			--acid: #d8f27b;
+			--coral: #ff806d;
+			--mono: "DM Mono", monospace;
+			--sans: "Manrope", sans-serif;
+		}
+
+		* { box-sizing: border-box; }
+		html { scroll-behavior: smooth; }
+		body { margin: 0; background: var(--night); color: var(--ink); font-family: var(--sans); }
+		body::before { content: ""; position: fixed; inset: 0; pointer-events: none; opacity: .35; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='.07'/%3E%3C/svg%3E"); z-index: 5; }
+		a { color: inherit; text-decoration: none; }
+		.wrap { width: min(1180px, calc(100% - 48px)); margin: auto; }
+		.mono { color: var(--muted); font: 500 11px/1.2 var(--mono); letter-spacing: .08em; text-transform: uppercase; }
+		.topbar { display: flex; justify-content: space-between; align-items: center; height: 88px; border-bottom: 1px solid var(--line); }
+		.brand { display: flex; align-items: center; gap: 12px; font-weight: 800; letter-spacing: -.04em; }
+		.mark { display: grid; place-items: center; width: 31px; height: 31px; border: 1px solid var(--acid); color: var(--acid); font: 500 12px var(--mono); transform: rotate(45deg); }
+		.mark span { transform: rotate(-45deg); }
+		nav { display: flex; gap: 31px; color: var(--muted); font-size: 12px; }
+		nav a:hover { color: var(--acid); }
+		.status { display: flex; align-items: center; gap: 8px; color: var(--acid); font: 500 10px var(--mono); text-transform: uppercase; letter-spacing: .08em; }
+		.status i { width: 7px; height: 7px; border-radius: 50%; background: var(--acid); box-shadow: 0 0 14px var(--acid); }
+		.hero { position: relative; display: grid; grid-template-columns: 1.08fr .92fr; gap: 80px; align-items: center; min-height: 620px; padding: 92px 0 120px; overflow: hidden; }
+		.hero::after { content: ""; position: absolute; width: 520px; height: 520px; right: -130px; top: -100px; border: 1px solid rgba(216, 242, 123, .16); border-radius: 50%; box-shadow: 0 0 0 42px rgba(216,242,123,.025), 0 0 0 84px rgba(216,242,123,.02); pointer-events: none; }
+		.eyebrow { margin-bottom: 28px; color: var(--acid); }
+		.eyebrow::before { content: ""; display: inline-block; width: 22px; border-top: 1px solid var(--acid); margin: 0 10px 3px 0; }
+		h1 { max-width: 680px; margin: 0; font-size: clamp(52px, 7vw, 90px); line-height: .97; letter-spacing: -.075em; font-weight: 700; }
+		h1 em { color: var(--acid); font-style: normal; }
+		.lede { max-width: 430px; margin: 28px 0 36px; color: var(--muted); font-size: 16px; line-height: 1.7; }
+		.cta { display: inline-flex; align-items: center; gap: 22px; padding: 15px 18px 15px 20px; color: var(--night); background: var(--acid); font-size: 12px; font-weight: 800; transition: gap .25s ease, background .25s ease; }
+		.cta::after { content: "↗"; font-size: 18px; line-height: 10px; }
+		.cta:hover { gap: 30px; background: #e7ff9a; }
+		.hero-note { margin-top: 75px; color: var(--dim); font: 11px var(--mono); }
+		.hero-note strong { color: var(--muted); font-weight: 400; }
+		.console { position: relative; z-index: 1; background: var(--panel); border: 1px solid var(--line); box-shadow: 20px 20px 0 rgba(216,242,123,.06); animation: rise .8s ease both .15s; }
+		.console-head { display: flex; justify-content: space-between; padding: 16px 18px; border-bottom: 1px solid var(--line); }
+		.console-title { color: var(--ink); font: 11px var(--mono); }
+		.console-dot { color: var(--acid); }
+		.conversation { padding: 24px 22px 20px; min-height: 270px; }
+		.question { margin: 0 0 23px; color: var(--muted); font-size: 13px; line-height: 1.6; }
+		.question span { color: var(--coral); font: 11px var(--mono); }
+		.answer { display: grid; grid-template-columns: 23px 1fr; gap: 12px; padding-top: 20px; border-top: 1px solid var(--line); }
+		.answer-mark { color: var(--acid); font: 14px var(--mono); }
+		.answer p { margin: 0 0 14px; font-size: 13px; line-height: 1.65; }
+		.answer ul { margin: 0; padding: 0; list-style: none; color: var(--muted); font: 11px/2 var(--mono); }
+		.answer li::before { content: "→"; margin-right: 9px; color: var(--acid); }
+		.console-foot { display: flex; justify-content: space-between; padding: 13px 18px; border-top: 1px solid var(--line); color: var(--dim); font: 10px var(--mono); }
+		.console-foot span:last-child { color: var(--acid); }
+		.strip { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+		.strip-inner { display: flex; justify-content: space-between; align-items: center; min-height: 104px; gap: 28px; }
+		.strip p { max-width: 420px; margin: 0; color: var(--muted); font-size: 14px; }
+		.tools { display: flex; gap: 9px; flex-wrap: wrap; justify-content: flex-end; }
+		.tool { padding: 10px 12px; border: 1px solid var(--line); color: var(--muted); font: 10px var(--mono); }
+		.section { padding: 130px 0; }
+		.section-label { margin-bottom: 27px; color: var(--coral); }
+		h2 { max-width: 680px; margin: 0; font-size: clamp(34px, 5vw, 60px); line-height: 1.03; letter-spacing: -.065em; }
+		.capabilities { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; margin-top: 75px; background: var(--line); }
+		.capability { min-height: 230px; padding: 28px; background: var(--night); }
+		.capability-number { color: var(--acid); font: 12px var(--mono); }
+		.capability h3 { margin: 62px 0 12px; font-size: 20px; letter-spacing: -.04em; }
+		.capability p { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.6; }
+		.closing { display: grid; grid-template-columns: 1fr 1fr; align-items: end; min-height: 480px; padding: 90px 0; border-top: 1px solid var(--line); }
+		.closing h2 { max-width: 530px; }
+		.closing .lede { margin: 0 0 30px auto; }
+		footer { display: flex; justify-content: space-between; padding: 22px 0 34px; border-top: 1px solid var(--line); color: var(--dim); font: 10px var(--mono); }
+		@keyframes rise { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+		@media (max-width: 760px) {
+			.wrap { width: min(100% - 32px, 560px); }
+			.topbar { height: 74px; } nav { display: none; } .status { font-size: 9px; }
+			.hero { display: block; padding: 78px 0 95px; } .hero::after { width: 300px; height: 300px; right: -170px; top: 230px; }
+			h1 { font-size: clamp(48px, 15vw, 72px); } .hero-note { margin: 45px 0; } .console { margin-top: 48px; }
+			.strip-inner { display: block; padding: 25px 0; } .tools { justify-content: flex-start; margin-top: 20px; }
+			.section { padding: 90px 0; } .capabilities { grid-template-columns: 1fr; margin-top: 48px; } .capability { min-height: auto; padding: 25px; }
+			.capability h3 { margin-top: 42px; } .closing { display: block; min-height: 0; padding: 90px 0; } .closing .lede { margin: 30px 0; }
+			footer { display: block; line-height: 2; } footer span { display: block; }
+		}
+	</style>
+</head>
+<body>
+	<header class="topbar wrap">
+		<a class="brand" href="#top" aria-label="A.R.I.S. home"><span class="mark"><span>AI</span></span><span>A.R.I.S.</span></a>
+		<nav aria-label="Main navigation"><a href="#system">System</a><a href="#capabilities">Capabilities</a><a href="#start">Start a session</a></nav>
+		<div class="status"><i></i> system online</div>
+	</header>
+
+	<main id="top">
+		<section class="hero wrap">
+			<div>
+				<div class="eyebrow mono">Adaptive Responsive Intelligence System</div>
+				<h1>Your thinking,<br /><em>in motion.</em></h1>
+				<p class="lede">A personal AI assistant for the messy middle between a good question and a clear next move.</p>
+				<a class="cta" href="#start">Enter the system</a>
+				<div class="hero-note">Built for curious minds <strong>/</strong> Python · SQL · R · Power BI</div>
+			</div>
+			<div class="console" aria-label="A.R.I.S. assistant preview">
+				<div class="console-head"><span class="console-title"><span class="console-dot">●</span> ARIS / workspace</span><span class="mono">v.01.26</span></div>
+				<div class="conversation">
+					<p class="question"><span>YOU //</span><br />Turn this pile of data into something I can act on.</p>
+					<div class="answer"><div class="answer-mark">AI</div><div><p>Let’s make it legible. I found three useful paths forward:</p><ul><li>clean the signal</li><li>surface the pattern</li><li>shape the decision</li></ul></div></div>
+				</div>
+				<div class="console-foot"><span>context loaded: 04 sources</span><span>ready_</span></div>
+			</div>
+		</section>
+
+		<section class="strip" id="system"><div class="strip-inner wrap"><p>Less noise in. More clarity out. A.R.I.S. adapts to the way you work.</p><div class="tools"><span class="tool">RESEARCH</span><span class="tool">ANALYZE</span><span class="tool">CREATE</span></div></div></section>
+
+		<section class="section wrap" id="capabilities">
+			<div class="section-label mono">01 / The architecture</div>
+			<h2>Not just answers.<br />A better way forward.</h2>
+			<div class="capabilities">
+				<article class="capability"><div class="capability-number">01</div><h3>Make sense of the noise</h3><p>Bring scattered research, raw data, and half-formed ideas into one coherent workspace.</p></article>
+				<article class="capability"><div class="capability-number">02</div><h3>Find the useful signal</h3><p>Move from information to insight with analytical thinking that stays grounded in your context.</p></article>
+				<article class="capability"><div class="capability-number">03</div><h3>Move with confidence</h3><p>Turn the next question into a practical plan, a sharp visual, or a decision you can stand behind.</p></article>
+			</div>
+		</section>
+
+		<section class="closing wrap" id="start"><div><div class="section-label mono">02 / Your next move</div><h2>Bring the question.<br /><em>Keep the momentum.</em></h2></div><div><p class="lede">A.R.I.S. is ready when the blank page is not. Start wherever the thinking gets interesting.</p><a class="cta" href="mailto:hello@aris.system">Start a session</a></div></section>
+	</main>
+	<footer class="wrap"><span>A.R.I.S. / Adaptive Responsive Intelligence System</span><span>Designed for the curious · © 2026</span></footer>
+</body>
+</html>
