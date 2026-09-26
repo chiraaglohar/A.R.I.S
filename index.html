@@ -47,6 +47,9 @@
 		.cta { display: inline-flex; align-items: center; gap: 22px; padding: 15px 18px 15px 20px; color: var(--night); background: var(--acid); font-size: 12px; font-weight: 800; transition: gap .25s ease, background .25s ease; }
 		.cta::after { content: "↗"; font-size: 18px; line-height: 10px; }
 		.cta:hover { gap: 30px; background: #e7ff9a; }
+		.voice-row { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; margin-top: 18px; }
+		.voice-button { border: 1px solid var(--line); background: rgba(255,255,255,.02); color: var(--ink); padding: 14px 18px; font: 700 11px var(--mono); text-transform: uppercase; letter-spacing: .08em; cursor: pointer; }
+		.voice-button:hover { border-color: var(--acid); color: var(--acid); }
 		.hero-note { margin-top: 75px; color: var(--dim); font: 11px var(--mono); }
 		.hero-note strong { color: var(--muted); font-weight: 400; }
 		.console { position: relative; z-index: 1; background: var(--panel); border: 1px solid var(--line); box-shadow: 20px 20px 0 rgba(216,242,123,.06); animation: rise .8s ease both .15s; }
@@ -68,6 +71,14 @@
 		.strip p { max-width: 420px; margin: 0; color: var(--muted); font-size: 14px; }
 		.tools { display: flex; gap: 9px; flex-wrap: wrap; justify-content: flex-end; }
 		.tool { padding: 10px 12px; border: 1px solid var(--line); color: var(--muted); font: 10px var(--mono); }
+		.ord-grid { display: grid; grid-template-columns: 1.2fr .8fr; gap: 28px; align-items: stretch; margin-top: 52px; }
+		.ord-panel { padding: 28px; border: 1px solid var(--line); background: rgba(23, 26, 24, .9); }
+		.ord-tag { margin-bottom: 18px; color: var(--acid); font: 11px var(--mono); letter-spacing: .1em; text-transform: uppercase; }
+		.ord-panel h3 { margin: 0 0 16px; font-size: clamp(26px, 3vw, 38px); letter-spacing: -.06em; }
+		.ord-panel p { margin: 0; font-size: 14px; line-height: 1.7; color: var(--muted); }
+		.ord-list { display: grid; gap: 14px; margin: 0; padding: 0; list-style: none; }
+		.ord-list li { display: flex; justify-content: space-between; gap: 18px; padding: 14px 0; border-bottom: 1px solid var(--line); color: var(--muted); font: 11px var(--mono); text-transform: uppercase; }
+		.ord-list li span:last-child { color: var(--ink); }
 		.section { padding: 130px 0; }
 		.section-label { margin-bottom: 27px; color: var(--coral); }
 		h2 { max-width: 680px; margin: 0; font-size: clamp(34px, 5vw, 60px); line-height: 1.03; letter-spacing: -.065em; }
@@ -87,6 +98,7 @@
 			.hero { display: block; padding: 78px 0 95px; } .hero::after { width: 300px; height: 300px; right: -170px; top: 230px; }
 			h1 { font-size: clamp(48px, 15vw, 72px); } .hero-note { margin: 45px 0; } .console { margin-top: 48px; }
 			.strip-inner { display: block; padding: 25px 0; } .tools { justify-content: flex-start; margin-top: 20px; }
+			.ord-grid { grid-template-columns: 1fr; } .ord-panel { padding: 22px; } .ord-list li { font-size: 10px; }
 			.section { padding: 90px 0; } .capabilities { grid-template-columns: 1fr; margin-top: 48px; } .capability { min-height: auto; padding: 25px; }
 			.capability h3 { margin-top: 42px; } .closing { display: block; min-height: 0; padding: 90px 0; } .closing .lede { margin: 30px 0; }
 			footer { display: block; line-height: 2; } footer span { display: block; }
@@ -96,7 +108,7 @@
 <body>
 	<header class="topbar wrap">
 		<a class="brand" href="#top" aria-label="A.R.I.S. home"><span class="mark"><span>AI</span></span><span>A.R.I.S.</span></a>
-		<nav aria-label="Main navigation"><a href="#system">System</a><a href="#capabilities">Capabilities</a><a href="#start">Start a session</a></nav>
+		<nav aria-label="Main navigation"><a href="#system">System</a><a href="#ord">ORD</a><a href="#capabilities">Capabilities</a><a href="#start">Start a session</a></nav>
 		<div class="status"><i></i> system online</div>
 	</header>
 
@@ -106,14 +118,17 @@
 				<div class="eyebrow mono">Adaptive Responsive Intelligence System</div>
 				<h1>Your thinking,<br /><em>in motion.</em></h1>
 				<p class="lede">A personal AI assistant for the messy middle between a good question and a clear next move.</p>
-				<a class="cta" href="#start">Enter the system</a>
+				<div class="voice-row">
+					<a class="cta" href="#start">Enter the system</a>
+					<button class="voice-button" id="voice-button" type="button">Listen to greeting</button>
+				</div>
 				<div class="hero-note">Built for curious minds <strong>/</strong> Python · SQL · R · Power BI</div>
 			</div>
 			<div class="console" aria-label="A.R.I.S. assistant preview">
 				<div class="console-head"><span class="console-title"><span class="console-dot">●</span> ARIS / workspace</span><span class="mono">v.01.26</span></div>
 				<div class="conversation">
-					<p class="question"><span>YOU //</span><br />Turn this pile of data into something I can act on.</p>
-					<div class="answer"><div class="answer-mark">AI</div><div><p>Let’s make it legible. I found three useful paths forward:</p><ul><li>clean the signal</li><li>surface the pattern</li><li>shape the decision</li></ul></div></div>
+					<p class="question"><span>JARVIS //</span><br />Good evening, sir. A.R.I.S. is online and ready to assist.</p>
+					<div class="answer"><div class="answer-mark">AI</div><div><p>System diagnostics are stable. I’ve identified three useful paths forward:</p><ul><li>clean the signal</li><li>surface the pattern</li><li>shape the decision</li></ul></div></div>
 				</div>
 				<div class="console-foot"><span>context loaded: 04 sources</span><span>ready_</span></div>
 			</div>
@@ -121,8 +136,27 @@
 
 		<section class="strip" id="system"><div class="strip-inner wrap"><p>Less noise in. More clarity out. A.R.I.S. adapts to the way you work.</p><div class="tools"><span class="tool">RESEARCH</span><span class="tool">ANALYZE</span><span class="tool">CREATE</span></div></div></section>
 
+		<section class="section wrap" id="ord">
+			<div class="section-label mono">02 / ORD</div>
+			<h2>Observe. Reason. Decide.</h2>
+			<div class="ord-grid">
+				<div class="ord-panel">
+					<div class="ord-tag">A.R.I.S. operating model</div>
+					<h3>ORD turns raw information into an action path.</h3>
+					<p>It is the decision engine behind the system: gather what matters, convert it into signal, and turn the next move into something practical.</p>
+				</div>
+				<div class="ord-panel">
+					<ul class="ord-list">
+						<li><span>Observe</span><span>Collect context</span></li>
+						<li><span>Reason</span><span>Find patterns</span></li>
+						<li><span>Decide</span><span>Move forward</span></li>
+					</ul>
+				</div>
+			</div>
+		</section>
+
 		<section class="section wrap" id="capabilities">
-			<div class="section-label mono">01 / The architecture</div>
+			<div class="section-label mono">03 / The architecture</div>
 			<h2>Not just answers.<br />A better way forward.</h2>
 			<div class="capabilities">
 				<article class="capability"><div class="capability-number">01</div><h3>Make sense of the noise</h3><p>Bring scattered research, raw data, and half-formed ideas into one coherent workspace.</p></article>
@@ -131,8 +165,50 @@
 			</div>
 		</section>
 
-		<section class="closing wrap" id="start"><div><div class="section-label mono">02 / Your next move</div><h2>Bring the question.<br /><em>Keep the momentum.</em></h2></div><div><p class="lede">A.R.I.S. is ready when the blank page is not. Start wherever the thinking gets interesting.</p><a class="cta" href="mailto:hello@aris.system">Start a session</a></div></section>
+		<section class="closing wrap" id="start"><div><div class="section-label mono">04 / Your next move</div><h2>Bring the question.<br /><em>Keep the momentum.</em></h2></div><div><p class="lede">A.R.I.S. is ready when the blank page is not. Start wherever the thinking gets interesting.</p><a class="cta" href="mailto:hello@aris.system">Start a session</a></div></section>
 	</main>
-	<footer class="wrap"><span>A.R.I.S. / Adaptive Responsive Intelligence System</span><span>Designed for the curious · © 2026</span></footer>
+	<footer class="wrap"><span>A.R.I.S. / Adaptive Responsive Intelligence System · ORD</span><span>Designed for the curious · © 2026</span></footer>
+
+	<script>
+		(function () {
+			function speakJarvisGreeting() {
+				if (!('speechSynthesis' in window)) {
+					return;
+				}
+
+				window.speechSynthesis.cancel();
+
+				const message = 'Good evening, sir. A.R.I.S. is online and ready to assist.';
+				const utterance = new SpeechSynthesisUtterance(message);
+				utterance.rate = 0.9;
+				utterance.pitch = 0.75;
+				utterance.volume = 1;
+
+				const voices = window.speechSynthesis.getVoices();
+				const preferred = voices.find(function (voice) {
+					return /google|samantha|alex|daniel|en-us|en-gb|english/i.test(voice.name + ' ' + voice.lang);
+				}) || voices.find(function (voice) {
+					return /en/i.test(voice.lang);
+				});
+
+				if (preferred) {
+					utterance.voice = preferred;
+				}
+
+				window.speechSynthesis.speak(utterance);
+			}
+
+			const voiceButton = document.getElementById('voice-button');
+			if (voiceButton) {
+				voiceButton.addEventListener('click', function () {
+					speakJarvisGreeting();
+					voiceButton.textContent = 'Playing greeting...';
+					setTimeout(function () {
+						voiceButton.textContent = 'Listen again';
+					}, 1800);
+				});
+			}
+		})();
+	</script>
 </body>
 </html>
