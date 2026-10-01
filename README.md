@@ -154,10 +154,10 @@ This project is licensed under the MIT License. See [LICENSE](LICENSE) for full 
 
 ## Contact
 
-@chirag lohar
+@chiraaglohar
 
 ## Summary
 
 A.R.I.S. is not just another AI landing page. It represents a practical idea: combine context, analysis, and decision support into one clear system that helps people move from uncertainty to action.
 
-The name itself reflects that mission — Adaptive Responsive Intelligence System — designed for clarity, momentum, and useful execution.
+
