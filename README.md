@@ -2,7 +2,7 @@
 
 Adaptive Responsive Intelligence System
 
-> By @chirag lohar
+> By @chiraaglohar
 
 <div align="center">
   <img width="1400" alt="A.R.I.S. visual preview" src="https://github.com/user-attachments/assets/f4faff40-d912-4bb8-bb43-8ef903e6c3fd" />
