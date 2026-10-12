@@ -2,7 +2,6 @@
 
 Adaptive Responsive Intelligence System
 
-> By @chiraaglohar
 
 
 
